@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "ElectricalCarBlog",
   "main": "server.js",
+  "engines": {
+    "node": "18.16.0",
+    "npm": "9.7.2"
+  },
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js"
