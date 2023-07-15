@@ -4,7 +4,7 @@
   "description": "ElectricalCarBlog",
   "main": "server.js",
   "engines": {
-    "node": "18.16.0",
+    "node": "18.16.0"
   },
   "scripts": {
     "start": "node server.js",
