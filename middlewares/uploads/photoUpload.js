@@ -67,7 +67,7 @@ const coverPhotoResize = async (req, res, next) => {
     req.file.originalname
   }`;
   await sharp(req.file.buffer)
-    .resize(200, 200)
+    .resize(820, 312)
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
     .toFile(join(`public/img/cover/${req.file.filename}`));

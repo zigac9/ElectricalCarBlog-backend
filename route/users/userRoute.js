@@ -42,7 +42,7 @@ userRouter.put(
   "/upload-profile-photo",
   authMiddleware,
   profilePhotoUpload.single("image"),
-  coverPhotoResize,
+  profilePhotoResize,
   uploadProfilePhotoController,
 );
 userRouter.get("/", getAllUsersController);
