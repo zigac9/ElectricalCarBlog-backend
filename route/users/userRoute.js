@@ -20,6 +20,12 @@ const {
   uploadCoverPhotoController,
 } = require("../../controllers/users/usersController");
 
+const corsOptions = {
+  origin: "https://electrical-car-blog.netlify.app", // Replace with the actual origin/domain allowed to make the request
+  methods: ["PUT"], // Specify the allowed HTTP methods
+  allowedHeaders: ["Authorization", "Content-Type"], // Specify the allowed request headers
+};
+
 const authMiddleware = require("../../middlewares/auth/authMiddleware");
 const {
   profilePhotoUpload,
@@ -27,6 +33,7 @@ const {
   coverPhotoUpload,
   coverPhotoResize,
 } = require("../../middlewares/uploads/photoUpload");
+const cors = require("cors");
 const userRouter = express.Router();
 
 userRouter.post("/register", userRegisterController);
@@ -36,14 +43,15 @@ userRouter.put(
   authMiddleware,
   profilePhotoUpload.single("image"),
   profilePhotoResize,
-  uploadProfilePhotoController
+  uploadProfilePhotoController,
 );
 userRouter.put(
   "/upload-cover-photo",
+  cors(corsOptions), // Add the CORS middleware here
   authMiddleware,
   coverPhotoUpload.single("image"),
   coverPhotoResize,
-  uploadCoverPhotoController
+  uploadCoverPhotoController,
 );
 userRouter.get("/", getAllUsersController);
 userRouter.put("/password", authMiddleware, updateUserPasswordController); //update password
@@ -52,12 +60,12 @@ userRouter.put("/unfollow", authMiddleware, unfollowUserController);
 userRouter.post(
   "/generate-verify-email-token",
   authMiddleware,
-  generateVerificationTokenController
+  generateVerificationTokenController,
 );
 userRouter.put(
   "/verify-account",
   authMiddleware,
-  accountVerificationController
+  accountVerificationController,
 );
 userRouter.post("/forget-password-token", generateResetPasswordTokenController);
 userRouter.put("/reset-password", resetPasswordController);
@@ -65,7 +73,7 @@ userRouter.post("/block-user/:blockId", authMiddleware, blockUserController);
 userRouter.post(
   "/unblock-user/:blockId",
   authMiddleware,
-  unblockUserController
+  unblockUserController,
 );
 userRouter.get("/profile/:userId", authMiddleware, getUserProfileController); //only login user can access this route
 userRouter.put("/", authMiddleware, updateUserProfileController); //update profile
