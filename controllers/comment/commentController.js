@@ -150,6 +150,7 @@ const updateCommentController = expressAsyncHandler(async (req, res) => {
 //delete a comment
 const deleteCommentController = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
+  const { _id } = req?.user;
   validateMongoDbID(id);
 
   // check if account is verified
@@ -161,7 +162,7 @@ const deleteCommentController = expressAsyncHandler(async (req, res) => {
     //check if userID is the same as the user who created the comment
     const commentPermission = await Comment.findById(id);
     if (
-      commentPermission?.user?._id.toString() !== req?.user?._id?.toString() &&
+      commentPermission?.user?._id.toString() !== _id?.toString() &&
       !req?.user?.isAdmin
     ) {
       res
