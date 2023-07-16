@@ -39,7 +39,7 @@ userRouter.put(
   uploadProfilePhotoController,
 );
 userRouter.put(
-  "/upload-cover-photo",
+  "/upload-cover-image",
   authMiddleware,
   coverPhotoUpload.single("image"),
   coverPhotoResize,
