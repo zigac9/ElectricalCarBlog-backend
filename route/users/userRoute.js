@@ -20,12 +20,6 @@ const {
   uploadCoverPhotoController,
 } = require("../../controllers/users/usersController");
 
-const corsOptions = {
-  origin: "https://electrical-car-blog.netlify.app", // Replace with the actual origin/domain allowed to make the request
-  methods: ["PUT"], // Specify the allowed HTTP methods
-  allowedHeaders: ["Authorization", "Content-Type"], // Specify the allowed request headers
-};
-
 const authMiddleware = require("../../middlewares/auth/authMiddleware");
 const {
   profilePhotoUpload,
@@ -33,7 +27,6 @@ const {
   coverPhotoUpload,
   coverPhotoResize,
 } = require("../../middlewares/uploads/photoUpload");
-const cors = require("cors");
 const userRouter = express.Router();
 
 userRouter.post("/register", userRegisterController);
@@ -47,7 +40,6 @@ userRouter.put(
 );
 userRouter.put(
   "/upload-cover-photo",
-  cors(corsOptions), // Add the CORS middleware here
   authMiddleware,
   coverPhotoUpload.single("image"),
   coverPhotoResize,

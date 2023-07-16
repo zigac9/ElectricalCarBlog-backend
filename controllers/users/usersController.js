@@ -122,7 +122,7 @@ const userLoginController = expressAsyncHandler(async (req, res) => {
 
   const { allowRequest, returnMessage } = await checkForProfaneWords(
     userExists?._id,
-    req
+    req,
   );
   if (!allowRequest) {
     throw new Error(returnMessage);
@@ -278,7 +278,7 @@ const updateUserProfileController = expressAsyncHandler(async (req, res) => {
     {
       new: true,
       runValidators: true,
-    }
+    },
   );
   res.json(user);
 });
@@ -317,7 +317,7 @@ const updateUserPasswordController = expressAsyncHandler(async (req, res) => {
   const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}$/;
   if (!passwordRegex.test(password)) {
     throw new Error(
-      "Password must be at least 6 characters long and contain at least one number and one uppercase letter and one special character"
+      "Password must be at least 6 characters long and contain at least one number and one uppercase letter and one special character",
     );
   }
 
@@ -363,7 +363,7 @@ const followUserController = expressAsyncHandler(async (req, res) => {
     },
     {
       new: true,
-    }
+    },
   );
 
   //update following array
@@ -374,7 +374,7 @@ const followUserController = expressAsyncHandler(async (req, res) => {
     },
     {
       new: true,
-    }
+    },
   );
 
   res.json({ message: "Followed successfully" });
@@ -408,7 +408,7 @@ const unfollowUserController = expressAsyncHandler(async (req, res) => {
     },
     {
       new: true,
-    }
+    },
   );
 
   //update following array
@@ -419,7 +419,7 @@ const unfollowUserController = expressAsyncHandler(async (req, res) => {
     },
     {
       new: true,
-    }
+    },
   );
 
   res.json({ message: "UnFollowed successfully" });
@@ -448,7 +448,7 @@ const blockUserController = expressAsyncHandler(async (req, res) => {
       },
       {
         new: true,
-      }
+      },
     );
     res.json(user);
   }
@@ -473,7 +473,7 @@ const unblockUserController = expressAsyncHandler(async (req, res) => {
     },
     {
       new: true,
-    }
+    },
   );
   res.json(user);
 });
@@ -507,7 +507,7 @@ const generateVerificationTokenController = expressAsyncHandler(
     } catch (error) {
       res.status(500).json(error);
     }
-  }
+  },
 );
 
 //account verification
@@ -577,7 +577,7 @@ const generateResetPasswordTokenController = expressAsyncHandler(
     } catch (error) {
       res.status(500).json(error);
     }
-  }
+  },
 );
 
 //reset password
@@ -637,7 +637,7 @@ const uploadProfilePhotoController = expressAsyncHandler(async (req, res) => {
     },
     {
       new: true,
-    }
+    },
   );
   //remove the image from the local storage
   fs.unlinkSync(localPath);
@@ -646,19 +646,21 @@ const uploadProfilePhotoController = expressAsyncHandler(async (req, res) => {
 
 //cover photo upload
 const uploadCoverPhotoController = expressAsyncHandler(async (req, res) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://electrical-car-blog.netlify.app",
+  );
+  res.setHeader("Access-Control-Allow-Methods", "PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+
   //find the login user
   const { _id } = req?.user;
-
-  console.log(_id)
 
   //get the path to the image
   const localPath = `public/img/cover/${req.file.filename}`;
 
   //update the user profile photo
   const imgUploaded = await cloudinaryUpload(localPath);
-
-  console.log(imgUploaded?.url)
-
 
   const foundUser = await User.findByIdAndUpdate(
     _id,
@@ -667,10 +669,8 @@ const uploadCoverPhotoController = expressAsyncHandler(async (req, res) => {
     },
     {
       new: true,
-    }
+    },
   );
-
-  console.log(foundUser)
 
   //remove the image from the local storage
   fs.unlinkSync(localPath);
