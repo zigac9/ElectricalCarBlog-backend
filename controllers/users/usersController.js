@@ -644,8 +644,8 @@ const uploadProfilePhotoController = expressAsyncHandler(async (req, res) => {
   res.json(foundUser);
 });
 
-//cover photo upload
-const uploadCoverPhotoController = expressAsyncHandler(async (req, res) => {
+// cover photo upload
+const coverPhotoUploadController = expressAsyncHandler(async (req, res) => {
   //find the login user
   const { _id } = req?.user;
 
@@ -664,7 +664,6 @@ const uploadCoverPhotoController = expressAsyncHandler(async (req, res) => {
       new: true,
     },
   );
-
   //remove the image from the local storage
   fs.unlinkSync(localPath);
   res.json(foundUser);
@@ -688,5 +687,5 @@ module.exports = {
   generateResetPasswordTokenController,
   resetPasswordController,
   uploadProfilePhotoController,
-  uploadCoverPhotoController,
+  coverPhotoUploadController,
 };

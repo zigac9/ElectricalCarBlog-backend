@@ -17,7 +17,7 @@ const {
   generateResetPasswordTokenController,
   resetPasswordController,
   uploadProfilePhotoController,
-  uploadCoverPhotoController,
+  coverPhotoUploadController,
 } = require("../../controllers/users/usersController");
 
 const authMiddleware = require("../../middlewares/auth/authMiddleware");
@@ -38,14 +38,14 @@ userRouter.put(
   profilePhotoResize,
   uploadProfilePhotoController,
 );
+userRouter.get("/", getAllUsersController);
 userRouter.put(
-  "/upload-cover-image",
+  "/cover-photo-upload",
   authMiddleware,
   coverPhotoUpload.single("image"),
   coverPhotoResize,
-  uploadCoverPhotoController,
+  coverPhotoUploadController,
 );
-userRouter.get("/", getAllUsersController);
 userRouter.put("/password", authMiddleware, updateUserPasswordController); //update password
 userRouter.put("/follow", authMiddleware, followUserController);
 userRouter.put("/unfollow", authMiddleware, unfollowUserController);
