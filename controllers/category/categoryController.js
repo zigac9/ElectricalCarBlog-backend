@@ -13,7 +13,7 @@ const formSchema = Yup.object({
     .required("Category title is required")
     .matches(/^[a-zA-Z0-9 ]*$/, "Cannot contain special characters")
     .min(5, "Category title must be at least 5 characters long")
-    .max(20, "Category title cannot be more than 20 characters"),
+    .max(40, "Category title cannot be more than 40 characters"),
 });
 
 //create category
