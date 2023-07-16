@@ -29,7 +29,7 @@ const createCommentController = expressAsyncHandler(async (req, res) => {
   //Check for bad words
   const { allowRequest, returnMessage } = await checkForProfaneWords(
     user?._id,
-    req
+    req,
   );
   if (!allowRequest) {
     throw new Error(returnMessage);
@@ -95,12 +95,13 @@ const updateCommentController = expressAsyncHandler(async (req, res) => {
   }
 
   const { id } = req.params;
+  const { _id } = req?.user;
   validateMongoDbID(id);
 
   //Check for bad words
   const { allowRequest, returnMessage } = await checkForProfaneWords(
     req?.user?._id,
-    req
+    req,
   );
   if (!allowRequest) {
     throw new Error(returnMessage);
@@ -110,7 +111,7 @@ const updateCommentController = expressAsyncHandler(async (req, res) => {
     //check if userID is the same as the user who created the comment
     const commentPermission = await Comment.findById(id);
     if (
-      commentPermission?.user?._id.toString() !== req?.user?._id?.toString() &&
+      commentPermission?.user?._id.toString() !== _id?.toString() &&
       !req?.user?.isAdmin
     ) {
       res
@@ -137,7 +138,7 @@ const updateCommentController = expressAsyncHandler(async (req, res) => {
         {
           description: req?.body?.description,
         },
-        { new: true, runValidators: true }
+        { new: true, runValidators: true },
       );
       res.json(update);
     }
@@ -183,7 +184,7 @@ const likeCommentController = expressAsyncHandler(async (req, res) => {
 
   const isLiked = comment?.isLiked;
   const isAlreadyDisliked = comment?.disLikes?.find(
-    (userId) => userId.toString() === loginUserId.toString()
+    (userId) => userId.toString() === loginUserId.toString(),
   );
 
   if (isAlreadyDisliked) {
@@ -195,7 +196,7 @@ const likeCommentController = expressAsyncHandler(async (req, res) => {
         isLiked: true,
         isDisLiked: false,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(comment);
   }
@@ -207,7 +208,7 @@ const likeCommentController = expressAsyncHandler(async (req, res) => {
         $pull: { likes: loginUserId },
         isLiked: false,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(comment);
   } else {
@@ -217,7 +218,7 @@ const likeCommentController = expressAsyncHandler(async (req, res) => {
         $push: { likes: loginUserId },
         isLiked: true,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(comment);
   }
@@ -231,7 +232,7 @@ const dislikeCommentController = expressAsyncHandler(async (req, res) => {
 
   const isDisLiked = comment?.isDisLiked;
   const isAlreadyLiked = comment?.likes?.find(
-    (userId) => userId.toString() === loginUserId.toString()
+    (userId) => userId.toString() === loginUserId.toString(),
   );
 
   if (isAlreadyLiked) {
@@ -243,7 +244,7 @@ const dislikeCommentController = expressAsyncHandler(async (req, res) => {
         isDisLiked: true,
         isLiked: false,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(comment);
   }
@@ -255,7 +256,7 @@ const dislikeCommentController = expressAsyncHandler(async (req, res) => {
         $pull: { disLikes: loginUserId },
         isDisLiked: false,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(comment);
   } else {
@@ -265,7 +266,7 @@ const dislikeCommentController = expressAsyncHandler(async (req, res) => {
         $push: { disLikes: loginUserId },
         isDisLiked: true,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(comment);
   }
