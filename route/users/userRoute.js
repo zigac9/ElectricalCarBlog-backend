@@ -41,7 +41,7 @@ userRouter.post("/login", userLoginController);
 userRouter.put(
   "/upload-profile-photo",
   authMiddleware,
-  coverPhotoUpload.single("image"),
+  profilePhotoUpload.single("image"),
   coverPhotoResize,
   uploadProfilePhotoController,
 );
