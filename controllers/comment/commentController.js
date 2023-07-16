@@ -118,17 +118,17 @@ const updateCommentController = expressAsyncHandler(async (req, res) => {
         .status(404)
         .json({ message: "You are not allowed to update this comment." });
     } else {
-      if (!description) {
+      if (!req?.body?.description) {
         res.status(404).json({ message: "Comment must be provided to post" });
-      } else if (!/^[^<>]*$/.test(description)) {
+      } else if (!/^[^<>]*$/.test(req?.body?.description)) {
         res
           .status(404)
           .json({ message: "Comment cannot contain characters < or >" });
-      } else if (description.length < 10) {
+      } else if (req?.body?.description.length < 10) {
         res
           .status(404)
           .json({ message: "Comment must be at least 10 characters long" });
-      } else if (description.length > 300) {
+      } else if (req?.body?.description.length > 300) {
         res
           .status(404)
           .json({ message: "Comment must be at most 300 characters long" });
