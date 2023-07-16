@@ -13,7 +13,7 @@ const multerFilter = (req, file, cb) => {
       {
         message: "Please upload an image file",
       },
-      false
+      false,
     );
   }
 };
@@ -67,7 +67,7 @@ const coverPhotoResize = async (req, res, next) => {
     req.file.originalname
   }`;
   await sharp(req.file.buffer)
-    .resize(820, 312)
+    .resize(200, 200)
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
     .toFile(join(`public/img/cover/${req.file.filename}`));
