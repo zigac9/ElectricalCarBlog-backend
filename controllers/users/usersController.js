@@ -492,7 +492,7 @@ const generateVerificationTokenController = expressAsyncHandler(
         const verificationToken = await user.createAccountVerificationToken();
         await user.save();
 
-        const resetURL = `If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message: <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify</a>`;
+        const resetURL = `If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message: <a href="http://https://electrical-car-blog-backend-7d9939409270.herokuapp.com/verify-account/${verificationToken}">Click to verify</a>`;
 
         //build your message
         const msg = {
@@ -560,7 +560,7 @@ const generateResetPasswordTokenController = expressAsyncHandler(
       const resetToken = await user.createPasswordResetToken();
       await user.save();
 
-      const resetURL = `If you requested to reset your password, reset now within 10 minutes, otherwise ignore this message: <a href="http://localhost:3000/reset-password/${resetToken}">Click to reset</a>`;
+      const resetURL = `If you requested to reset your password, reset now within 10 minutes, otherwise ignore this message: <a href="http://https://electrical-car-blog-backend-7d9939409270.herokuapp.com/reset-password/${resetToken}">Click to reset</a>`;
 
       //build your message
       const msg = {
