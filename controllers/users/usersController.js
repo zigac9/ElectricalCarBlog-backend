@@ -633,7 +633,7 @@ const uploadProfilePhotoController = expressAsyncHandler(async (req, res) => {
   const foundUser = await User.findByIdAndUpdate(
     _id,
     {
-      coverPhoto: imgUploaded?.url,
+      profilePicture: imgUploaded?.url,
     },
     {
       new: true,
@@ -650,7 +650,7 @@ const coverPhotoUploadController = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
 
   //get the path to the image
-  const localPath = `public/img/cover/${req.file.filename}`;
+  const localPath = `public/img/profile/${req.file.filename}`;
 
   //update the user profile photo
   const imgUploaded = await cloudinaryUpload(localPath);

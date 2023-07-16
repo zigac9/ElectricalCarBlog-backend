@@ -31,13 +31,13 @@ const userRouter = express.Router();
 
 userRouter.post("/register", userRegisterController);
 userRouter.post("/login", userLoginController);
-// userRouter.put(
-//   "/cover-photo-upload",
-//   authMiddleware,
-//   coverPhotoUpload.single("image"),
-//   coverPhotoResize,
-//   coverPhotoUploadController,
-// );
+userRouter.put(
+  "/upload-cover-photo",
+  authMiddleware,
+  coverPhotoUpload.single("image"),
+  coverPhotoResize,
+  coverPhotoUploadController,
+);
 userRouter.put(
   "/upload-profile-photo",
   authMiddleware,

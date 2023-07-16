@@ -70,7 +70,7 @@ const coverPhotoResize = async (req, res, next) => {
     .resize(820, 312)
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
-    .toFile(join(`public/img/cover/${req.file.filename}`));
+    .toFile(join(`public/img/profile/${req.file.filename}`));
   next();
 };
 
