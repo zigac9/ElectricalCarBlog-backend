@@ -16,7 +16,7 @@ const formSchema = Yup.object().shape({
     .required("Title is required")
     .matches(/^[a-zA-Z0-9 ]*$/, "Cannot contain special characters")
     .min(5, "Title must be at least 5 characters long")
-    .max(30, "Title cannot be more than 30 characters"),
+    .max(40, "Title cannot be more than 40 characters"),
   description: Yup.string()
     .required("Description is required")
     .matches(/^[^<>]*$/, "Cannot contain characters < or >")
@@ -42,7 +42,7 @@ const formSchema = Yup.object().shape({
   startingLocation: Yup.object().required("Starting location is required"),
   endLocation: Yup.object().required("End location is required"),
   recommendedChargers: Yup.object().required(
-    "Recommended chargers is required"
+    "Recommended chargers is required",
   ),
 });
 
@@ -218,7 +218,7 @@ const updatePostController = expressAsyncHandler(async (req, res) => {
             isPublic: req?.body?.public,
             image: imgUploaded.url,
           },
-          { new: true, runValidators: true }
+          { new: true, runValidators: true },
         );
 
         convertedChargers?.length > 0 &&
@@ -260,7 +260,7 @@ const updatePostController = expressAsyncHandler(async (req, res) => {
             ...data,
             isPublic: req?.body?.public,
           },
-          { new: true, runValidators: true }
+          { new: true, runValidators: true },
         );
 
         convertedChargers?.length > 0 &&
@@ -348,7 +348,7 @@ const likePostController = expressAsyncHandler(async (req, res) => {
 
   //check if user disliked post
   const isAlreadyDisliked = post?.disLikes?.find(
-    (userId) => userId.toString() === loginUserId.toString()
+    (userId) => userId.toString() === loginUserId.toString(),
   );
 
   if (isAlreadyDisliked) {
@@ -360,7 +360,7 @@ const likePostController = expressAsyncHandler(async (req, res) => {
         isLiked: true,
         isDisLiked: false,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(post);
   }
@@ -372,7 +372,7 @@ const likePostController = expressAsyncHandler(async (req, res) => {
         $pull: { likes: loginUserId },
         isLiked: false,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(post);
   } else {
@@ -382,7 +382,7 @@ const likePostController = expressAsyncHandler(async (req, res) => {
         $push: { likes: loginUserId },
         isLiked: true,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(post);
   }
@@ -402,7 +402,7 @@ const dislikePostController = expressAsyncHandler(async (req, res) => {
 
   //check if user liked post
   const isAlreadyLiked = post?.likes?.find(
-    (userId) => userId.toString() === loginUserId.toString()
+    (userId) => userId.toString() === loginUserId.toString(),
   );
 
   if (isAlreadyLiked) {
@@ -414,7 +414,7 @@ const dislikePostController = expressAsyncHandler(async (req, res) => {
         isDisLiked: true,
         isLiked: false,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(post);
   }
@@ -426,7 +426,7 @@ const dislikePostController = expressAsyncHandler(async (req, res) => {
         $pull: { disLikes: loginUserId },
         isDisLiked: false,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(post);
   } else {
@@ -436,7 +436,7 @@ const dislikePostController = expressAsyncHandler(async (req, res) => {
         $push: { disLikes: loginUserId },
         isDisLiked: true,
       },
-      { new: true }
+      { new: true },
     );
     return res.json(post);
   }
