@@ -17,11 +17,6 @@ app.use(express.json());
 //cors
 app.use(cors());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
 //Register with use route middleware (app.use)
 const userRoute = require("./route/users/userRoute.js");
 app.use("/api/users", userRoute);
