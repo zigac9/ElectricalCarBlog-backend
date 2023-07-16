@@ -649,11 +649,16 @@ const uploadCoverPhotoController = expressAsyncHandler(async (req, res) => {
   //find the login user
   const { _id } = req?.user;
 
+  console.log(_id)
+
   //get the path to the image
   const localPath = `public/img/cover/${req.file.filename}`;
 
   //update the user profile photo
   const imgUploaded = await cloudinaryUpload(localPath);
+
+  console.log(imgUploaded?.url)
+
 
   const foundUser = await User.findByIdAndUpdate(
     _id,
@@ -664,6 +669,9 @@ const uploadCoverPhotoController = expressAsyncHandler(async (req, res) => {
       new: true,
     }
   );
+
+  console.log(foundUser)
+
   //remove the image from the local storage
   fs.unlinkSync(localPath);
   res.json(foundUser);
