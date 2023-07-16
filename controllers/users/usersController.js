@@ -625,7 +625,7 @@ const uploadProfilePhotoController = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
 
   //get the path to the image
-  const localPath = `public/img/profile/${req.file.filename}`;
+  const localPath = `public/img/cover/${req.file.filename}`;
 
   //update the user profile photo
   const imgUploaded = await cloudinaryUpload(localPath);

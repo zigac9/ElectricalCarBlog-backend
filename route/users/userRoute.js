@@ -31,20 +31,20 @@ const userRouter = express.Router();
 
 userRouter.post("/register", userRegisterController);
 userRouter.post("/login", userLoginController);
-userRouter.put(
-  "/cover-photo-upload",
-  authMiddleware,
-  profilePhotoUpload.single("image"),
-  profilePhotoResize,
-  coverPhotoUploadController,
-);
 // userRouter.put(
-//   "/upload-profile-photo",
+//   "/cover-photo-upload",
 //   authMiddleware,
-//   profilePhotoUpload.single("image"),
-//   profilePhotoResize,
-//   uploadProfilePhotoController,
+//   coverPhotoUpload.single("image"),
+//   coverPhotoResize,
+//   coverPhotoUploadController,
 // );
+userRouter.put(
+  "/upload-profile-photo",
+  authMiddleware,
+  coverPhotoUpload.single("image"),
+  coverPhotoResize,
+  uploadProfilePhotoController,
+);
 userRouter.get("/", getAllUsersController);
 userRouter.put("/password", authMiddleware, updateUserPasswordController); //update password
 userRouter.put("/follow", authMiddleware, followUserController);
