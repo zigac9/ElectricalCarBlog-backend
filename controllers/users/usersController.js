@@ -646,13 +646,6 @@ const uploadProfilePhotoController = expressAsyncHandler(async (req, res) => {
 
 //cover photo upload
 const uploadCoverPhotoController = expressAsyncHandler(async (req, res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://electrical-car-blog.netlify.app",
-  );
-  res.setHeader("Access-Control-Allow-Methods", "PUT");
-  res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
-
   //find the login user
   const { _id } = req?.user;
 
