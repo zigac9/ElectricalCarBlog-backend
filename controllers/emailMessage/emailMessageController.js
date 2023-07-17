@@ -16,10 +16,17 @@ const sendEmailMessageController = expressAsyncHandler(async (req, res) => {
 
   const { to, subject, message } = req.body;
 
+  // check if account is verified
+  if (!req?.user?.isAccountVerified) {
+    throw new Error(
+      "Your account is not verified! You cannot send message to user.",
+    );
+  }
+
   //Check for bad words
   const { allowRequest, returnMessage } = await checkForProfaneWords(
     req?.user?._id,
-    req
+    req,
   );
   if (!allowRequest) {
     throw new Error(returnMessage);
@@ -91,7 +98,7 @@ const sendEmailMessageToAdminController = expressAsyncHandler(
     //Check for bad words
     const { allowRequest, returnMessage } = await checkForProfaneWords(
       req?.user?._id,
-      req
+      req,
     );
     if (!allowRequest) {
       throw new Error(returnMessage);
@@ -147,7 +154,7 @@ const sendEmailMessageToAdminController = expressAsyncHandler(
     } catch (error) {
       res.status(500).json(error);
     }
-  }
+  },
 );
 
 module.exports = {
