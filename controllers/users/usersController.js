@@ -92,8 +92,12 @@ const userRegisterController = expressAsyncHandler(async (req, res) => {
 
   try {
     const user = await User.create({
-      firstName: req?.body?.firstName,
-      lastName: req?.body?.lastName,
+      firstName:
+        req?.body?.firstName?.charAt(0).toUpperCase() +
+        req?.body?.firstName?.slice(1).toLowerCase(),
+      lastName:
+        req?.body?.lastName?.charAt(0).toUpperCase() +
+        req?.body?.lastName?.slice(1).toLowerCase(),
       email: req?.body?.email,
       password: req?.body?.password,
     });
