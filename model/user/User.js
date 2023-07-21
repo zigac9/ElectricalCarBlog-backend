@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    loginWarningsCount: {
+      type: Number,
+      default: 0,
+    },
     isBlocked: {
       type: Boolean,
       default: false,
@@ -101,7 +105,7 @@ const userSchema = new mongoose.Schema(
       virtuals: true,
     },
     timestamps: true, //when user was created
-  }
+  },
 );
 
 //virtual populate

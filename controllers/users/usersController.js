@@ -134,6 +134,13 @@ const userLoginController = expressAsyncHandler(async (req, res) => {
 
   //check if the password is correct
   if (userExists && (await userExists.isPasswordMatched(password))) {
+    await User.findByIdAndUpdate(
+      userExists?._id,
+      {
+        $set: { loginWarningsCount: 0 },
+      },
+      { new: true },
+    );
     res.json({
       id: userExists?._id,
       firstName: userExists?.firstName,
@@ -145,7 +152,32 @@ const userLoginController = expressAsyncHandler(async (req, res) => {
       isAccountVerified: userExists?.isAccountVerified,
     });
   } else {
-    throw new Error("Invalid email or password");
+    const user = await User.findByIdAndUpdate(
+      userExists?._id,
+      {
+        $inc: { loginWarningsCount: 1 },
+      },
+      { new: true },
+    );
+    if (user.loginWarningsCount >= 4) {
+      const userBlocked = await User.findByIdAndUpdate(
+        userExists?._id,
+        {
+          $set: { isBlocked: true },
+        },
+        { new: true },
+      );
+      userBlocked.save();
+      throw new Error(
+        "You reached your third warning, you have been blocked! Contact the administrator to unblock you.",
+      );
+    } else {
+      throw new Error(
+        `Invalid email or password! Login attempts left - ${
+          4 - user.loginWarningsCount
+        }`,
+      );
+    }
   }
 });
 

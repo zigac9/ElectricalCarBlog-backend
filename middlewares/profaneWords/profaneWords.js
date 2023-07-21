@@ -23,7 +23,7 @@ const checkForProfaneWords = async (id, req) => {
       {
         $inc: { warningsCount: 1 },
       },
-      { new: true }
+      { new: true },
     );
 
     if (user.warningsCount >= 3) {
@@ -32,11 +32,12 @@ const checkForProfaneWords = async (id, req) => {
         {
           $set: { isBlocked: true },
         },
-        { new: true }
+        { new: true },
       );
       userBlocked.save();
       return {
-        returnMessage: "You reached your third warning, you have been blocked",
+        returnMessage:
+          "You reached your third warning, you have been blocked! Contact the administrator to unblock you.",
         allowRequest: false,
       };
     }
