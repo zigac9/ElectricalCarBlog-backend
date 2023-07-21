@@ -151,7 +151,7 @@ const userLoginController = expressAsyncHandler(async (req, res) => {
       token: generateToken(userExists?._id),
       isAccountVerified: userExists?.isAccountVerified,
     });
-  } else {
+  } else if (userExists) {
     const user = await User.findByIdAndUpdate(
       userExists?._id,
       {
@@ -178,6 +178,8 @@ const userLoginController = expressAsyncHandler(async (req, res) => {
         }`,
       );
     }
+  } else {
+    throw new Error("Invalid email or password!");
   }
 });
 
