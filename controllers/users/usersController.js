@@ -590,7 +590,7 @@ const generateResetPasswordTokenController = expressAsyncHandler(
     const user = await User.findOne({ email });
 
     if (!user) {
-      throw new Error("No user with this email");
+      throw new Error("This email does not exist!");
     }
 
     try {
