@@ -603,7 +603,7 @@ const generateResetPasswordTokenController = expressAsyncHandler(
       //build your message
       const msg = {
         to: user?.email,
-        from: "noreply@electricalcarblog.app",
+        from: "noreply@electricalcarblog.com",
         subject: "Sending password reset token",
         html: resetURL,
       };
