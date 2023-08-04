@@ -535,7 +535,7 @@ const generateVerificationTokenController = expressAsyncHandler(
         //build your message
         const msg = {
           to: user?.email,
-          from: "ziga.crv@tscng.org",
+          from: "noreply@electrical-car-blog.netlify.app",
           subject: "Sending account verification token",
           html: resetURL,
         };
@@ -603,7 +603,7 @@ const generateResetPasswordTokenController = expressAsyncHandler(
       //build your message
       const msg = {
         to: user?.email,
-        from: "ziga.crv@tscng.org",
+        from: "noreply@electrical-car-blog.netlify.app",
         subject: "Sending password reset token",
         html: resetURL,
       };
