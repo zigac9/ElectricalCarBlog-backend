@@ -603,7 +603,7 @@ const generateResetPasswordTokenController = expressAsyncHandler(
       //build your message
       const msg = {
         to: user?.email,
-        from: "noreply@electrical-car-blog.netlify.app",
+        from: "noreply@electrical-car-blog.app",
         subject: "Sending password reset token",
         html: resetURL,
       };
