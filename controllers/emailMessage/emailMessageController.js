@@ -66,7 +66,7 @@ const sendEmailMessageController = expressAsyncHandler(async (req, res) => {
       to,
       subject,
       text: message,
-      from: req?.user?.email,
+      from: "ziga.crv@tscng.org",
     };
     //send msg
     await sendGridEmail.send(msg);
