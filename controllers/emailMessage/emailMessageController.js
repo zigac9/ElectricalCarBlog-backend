@@ -66,7 +66,7 @@ const sendEmailMessageController = expressAsyncHandler(async (req, res) => {
       to,
       subject,
       text: message,
-      from: "noreply@electrical-car-blog.netlify.app",
+      from: "ziga.crv@tscng.org",
     };
     //send msg
     await sendGridEmail.send(msg);
@@ -138,7 +138,7 @@ const sendEmailMessageToAdminController = expressAsyncHandler(
         to,
         subject: subject + " - " + category,
         text: message,
-        from: "noreply@electrical-car-blog.netlify.app",
+        from: "ziga.crv@tscng.org",
       };
       //send msg
       await sendGridEmail.send(msg);
