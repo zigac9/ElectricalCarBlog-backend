@@ -35,6 +35,10 @@ const formSchema = Yup.object().shape({
     .required("Efficiency is required")
     .min(130, "Efficiency must be at least 130 Wh/km")
     .max(320, "Efficiency cannot be more than 320 Wh/km"),
+  fastChargerPower: Yup.number()
+    .required("Max charger power is required")
+    .min(1, "Max charger power must be at least 1 kW")
+    .max(500, "Max charger power cannot be more than 500 kW"),
   mainCategory: Yup.string()
     .required("Category is required")
     .matches(/^[^<>]*$/, "Cannot contain characters < or >"),
@@ -107,6 +111,7 @@ const createPostController = expressAsyncHandler(async (req, res) => {
     carName: req?.body?.carName,
     usableBatterySize: req?.body?.usableBatterySize,
     efficiency: req?.body?.efficiency,
+    fastChargerPower: req?.body?.fastChargerPower,
     recommendedChargers: recommendedChargers,
   };
 
@@ -180,6 +185,7 @@ const updatePostController = expressAsyncHandler(async (req, res) => {
     carName: req?.body?.carName,
     usableBatterySize: req?.body?.usableBatterySize,
     efficiency: req?.body?.efficiency,
+    fastChargerPower: req?.body?.fastChargerPower,
   };
 
   if (recommendedChargers?.chargersAuto && recommendedChargers?.routeDetails) {

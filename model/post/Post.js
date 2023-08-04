@@ -35,6 +35,10 @@ const postSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please enter efficiency"],
     },
+    fastChargerPower: {
+      type: Number,
+      required: [true, "Please enter fast charger power"],
+    },
     recommendedChargers: {
       type: Object,
       required: [true, "Recommended chargers required"],
@@ -90,7 +94,7 @@ const postSchema = new mongoose.Schema(
       virtuals: true,
     },
     timestamps: true, //when user was created
-  }
+  },
 );
 
 // populate comments
