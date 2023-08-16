@@ -153,7 +153,7 @@ To run the server locally, navigate to the root directory of the project in your
 The server is also deployed on Heroku, you can access it [here](https://electrical-car-blog-backend-7d9939409270.herokuapp.com/).
 
 ## Live Demo Page
-You can view the live demo of [Electrical car blog application](https://github.com/zigac9/ElectricalCarBlog-frontend) that is using this server at [electrical-car-blog](https://electrical-car-blog.netlify.app)
+You can view the live demo of [Electrical car blog application](https://github.com/zigac9/ElectricalCarBlogPublic-frontend) that is using this server at [electrical-car-blog](https://electrical-car-blog.netlify.app)
 
 ## About the Developer
 
